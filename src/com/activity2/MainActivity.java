@@ -103,4 +103,11 @@ public class MainActivity extends Activity
 		
 		CPZS.close();
 	}
+	
+	@Override
+	protected void onDestroy()
+	{
+		// TODO Auto-generated method stub
+		super.onDestroy();
+	}
 }

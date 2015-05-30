@@ -13,7 +13,7 @@ public class WYHelper
 	public String getStartTime()
 	{
 		if(beans.getStarttime()==null||beans.getStarttime().equals(""))
-			return "";
+			return "____-__-__ --:--:--";
 		else 
 			return beans.getStarttime();
 	}

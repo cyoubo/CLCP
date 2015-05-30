@@ -35,7 +35,8 @@ public class AListPlayerDisplay extends ListActivity
 	{
 		SQLiteOrmSDContext context=new SQLiteOrmSDContext(this, GlobleParam.Create());
 		SQliteCPZS cpzs=new SQliteCPZS(context);
-		adapter=new PlayersAdapter(this,cpzs.getREPlayerBeans().queryForAll());
+		String currentno=GlobleParam.Create().getPlayerBeans().getPlayerno();
+		adapter=new PlayersAdapter(this,cpzs.getREPlayerBeans().queryForAll(),currentno);
 		cpzs.close();
 	}
 	

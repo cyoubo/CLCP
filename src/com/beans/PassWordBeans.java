@@ -6,7 +6,7 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName="PW")
 public class PassWordBeans
 {
-	@DatabaseField(columnName="index")
+	@DatabaseField(columnName="index",generatedId=true)
 	private int index;
 	@DatabaseField(columnName="password")
 	private String passwrod;

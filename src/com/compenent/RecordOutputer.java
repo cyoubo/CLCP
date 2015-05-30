@@ -178,7 +178,7 @@ public class RecordOutputer implements FileoutputListener
 			//ËÙ¶È
 			if(nyBeans.getSudu_no()==0)
 			{
-				out.write(NYHelper.geshi_no+":0");
+				out.write(NYHelper.sudu_no+":0");
 				out.write(BaseFileOuter.NewLine());
 			}
 			else 

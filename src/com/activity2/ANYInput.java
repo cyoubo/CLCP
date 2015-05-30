@@ -42,7 +42,7 @@ import com.tool.mydialog.NormalDialog;
 public class ANYInput extends Activity
 {
 	private Button btn_start,btn_end;
-	private TextView tv_start,tv_end;
+	private TextView tv_start,tv_end,tv_current;
 	private RadioGroup rg_dakai,rg_anshi,rg_geshi;
 	private CheckBox cb_anshi;
 	private EditText ed_tiqian;
@@ -51,7 +51,7 @@ public class ANYInput extends Activity
 	private NYBeans beans;
 	private RecordStateBeans stateBeans;
 	
-	private boolean Flag_isLocked;
+	private static boolean Flag_isLocked;
 	private boolean Flag_issaved;
 	
 	public static final int ANYInput_ResetStart=1;
@@ -67,6 +67,7 @@ public class ANYInput extends Activity
 		btn_end=(Button)this.findViewById(R.id.fnyinput_btn_end);
 		tv_start=(TextView)this.findViewById(R.id.fnyinput_tv_start);
 		tv_end=(TextView)this.findViewById(R.id.fnyinput_tv_end);
+		tv_current=(TextView)this.findViewById(R.id.fnyinput_tv_current);
 		rg_dakai=(RadioGroup)this.findViewById(R.id.fnyinput_radioGroup_dakai);
 		rg_anshi=(RadioGroup)this.findViewById(R.id.fnyinput_radioGroup_anshi);
 		rg_geshi=(RadioGroup)this.findViewById(R.id.fnyinput_RadioGroup_geishi);
@@ -82,6 +83,7 @@ public class ANYInput extends Activity
 		cb_anshi.setOnCheckedChangeListener(cb_tiqianChangeListener);
 		tg_islocked.setOnCheckedChangeListener(toggle);
 		ed_tiqian.addTextChangedListener(new InputNumRangeWatcher(this, ed_tiqian, 0, 10,tiqiancallback));
+		
 	}
 	
 	@Override
@@ -121,6 +123,15 @@ public class ANYInput extends Activity
 			cpzs.close();
 			UpdateUIbyBeans(!Flag_isLocked);//¸üÐÂUI
 		}
+	}
+	
+	@Override
+	protected void onResume()
+	{
+		// TODO Auto-generated method stub
+		super.onResume();
+		tg_islocked.setChecked(Flag_isLocked);
+		tv_current.setText(GlobleParam.Create().getCurrentLabel());
 	}
 	
 	@Override

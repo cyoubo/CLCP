@@ -69,6 +69,13 @@ public class GlobleParam implements IDataBaseInfo
 		this.playerBeans = playerBeans;
 	}
 
+	public String getCurrentLabel()
+	{
+		if(this.playerBeans.getPlayerno().equals(""))
+			return "未设置当前组";
+		else 
+			return "当前组为:"+this.playerBeans.getPlayerno();
+	}
 
 	public String CombineNameFromPlayer()
 	{

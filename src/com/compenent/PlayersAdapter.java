@@ -3,6 +3,7 @@ package com.compenent;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +17,13 @@ public class PlayersAdapter extends BaseAdapter
 {
 	private List<PlayerBeans> list;
 	private Context context;
+	private String currentNO;
 	
-	public PlayersAdapter(Context context,List<PlayerBeans> list)
+	public PlayersAdapter(Context context,List<PlayerBeans> list,String currentNO)
 	{
 		this.context=context;
 		this.list=list;
+		this.currentNO=currentNO;
 	}
 	
 	@Override
@@ -60,6 +63,15 @@ public class PlayersAdapter extends BaseAdapter
 		tv_caiji.setText(temp.getCaijiPalyer());
 		tv_guance.setText(temp.getGuancePalyer());
 		tv_no.setText(temp.getPlayerno());
+		
+		if(temp.getPlayerno().equals(currentNO))
+		{
+			tv_biantu.setTextColor(Color.BLUE);
+			tv_caiji.setTextColor(Color.BLUE);
+			tv_guance.setTextColor(Color.BLUE);
+			tv_no.setTextColor(Color.BLUE);
+			tv_no.setText(temp.getPlayerno()+"£¨µ±Ç°×é£©");
+		}
 		
 		return convertView;
 	}

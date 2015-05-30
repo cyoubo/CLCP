@@ -41,7 +41,7 @@ import com.tool.mydialog.NormalDialog;
 public class AWYInput extends Activity
 {
 	private Button btn_start, btn_end;
-	private TextView tv_start, tv_end;
+	private TextView tv_start, tv_end,tv_current;
 	private CheckBox cb_jiashe, cb_duizhong, cb_dingxiang, cb_yindian,
 			cb_caiji;
 	private EditText ed_buwen, ed_banzhan, ed_qipao, ed_qian, ed_hou,
@@ -52,7 +52,7 @@ public class AWYInput extends Activity
 	private WYBeans beans;
 	private RecordStateBeans stateBeans;
 
-	private boolean Flag_isLocked;
+	private static boolean Flag_isLocked;
 	private boolean Flag_issaved;
 
 	public static final int AWYInput_ResetStart = 1;
@@ -76,8 +76,6 @@ public class AWYInput extends Activity
 				Flag_isLocked=true;
 			}
 			UpdateUIbyBeans(Flag_isLocked);
-			
-			
 		}
 	};
 
@@ -109,8 +107,7 @@ public class AWYInput extends Activity
 	{
 
 		@Override
-		public void onCheckedChanged(CompoundButton buttonView,
-				boolean isChecked)
+		public void onCheckedChanged(CompoundButton buttonView,boolean isChecked)
 		{
 			// TODO Auto-generated method stub
 			if (isChecked)
@@ -280,6 +277,7 @@ public class AWYInput extends Activity
 		ed_fail = (EditText) this.findViewById(R.id.fwyinput_ed_caiji_fail);
 		tg_islocked = (ToggleButton) this
 				.findViewById(R.id.fwyinput_toggle_locked);
+		tv_current=(TextView)findViewById(R.id.fwyinput_tv_current);
 		/* ÊÂ¼þ¼àÌý */
 		btn_end.setOnClickListener(endclick);
 		btn_start.setOnClickListener(startclick);
@@ -298,6 +296,15 @@ public class AWYInput extends Activity
 		ed_jiangli.addTextChangedListener(new InputNumRangeWatcher(this, ed_jiangli, 0, 10, wyAfterChange));
 		ed_qian.addTextChangedListener(new InputNumRangeWatcher(this, ed_qian, 0, 10, wyAfterChange));
 		ed_qipao.addTextChangedListener(new InputNumRangeWatcher(this, ed_qipao, 0, 10, wyAfterChange));
+	}
+	
+	@Override
+	protected void onResume()
+	{
+		// TODO Auto-generated method stub
+		super.onResume();
+		tg_islocked.setChecked(Flag_isLocked);
+		tv_current.setText(GlobleParam.Create().getCurrentLabel());
 	}
 
 	@Override
@@ -531,10 +538,14 @@ public class AWYInput extends Activity
 				case R.id.fwyinput_ed_caiji_fail:
 				{
 					beans.setCaiji_fail(resuslt);
+					if(resuslt!=0)
+						beans.setCaiji_finish(1);
 				}break;
 				case R.id.fwyinput_ed_caiji_jiangli:
 				{
 					beans.setCaiji_jiangli(resuslt);
+					if(resuslt!=0)
+						beans.setCaiji_finish(1);
 				}break;
 				default:
 					break;
