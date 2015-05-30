@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">裁判助手</string>
+    <string-array name="pannellabel">
+        <item>新建比赛组</item>
+        <item>管理比赛组</item>
+        <item>外业记录</item>
+        <item>内业记录</item>
+        <item>文件输出</item>
+        <item>密码管理</item>
+    </string-array>
+</resources>
