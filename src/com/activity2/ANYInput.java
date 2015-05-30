@@ -456,6 +456,7 @@ public class ANYInput extends Activity
 			CreateOrUpdateStatus j=cpzs.getRERecordStateBeans().createOrUpdate(helper.getBeans());
 			result=result&&(j.isCreated()||j.isUpdated());
 		}
+		cpzs.close();
 		SQLiteOrmHelper.ToastShowResult(ANYInput.this, result);
 		return result;
 		

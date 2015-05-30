@@ -1,8 +1,5 @@
 package com.activity2;
 
-import com.clcp.R;
-
-import android.R.integer;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,7 +7,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+
+import com.clcp.R;
 
 /**
  * 该界面用于密码输入，以dialog形式展示

@@ -91,15 +91,23 @@ public class AFileOutput extends Activity
 			SQLiteOrmSDContext context=new SQLiteOrmSDContext(AFileOutput.this, GlobleParam.Create());
 			SQliteCPZS cpzs=new SQliteCPZS(context);
 			
-			WYBeans WYbeans=cpzs.getREWYBeans().queryForEq("palyerno", playno).get(0);
-			NYBeans NYbeans=cpzs.getRENYBeans().queryForEq("palyerno", playno).get(0);
-			
-			BaseFileOuter output=new BaseFileOuter(GlobleParam.Create().getOutputFilePath(), playno+".cz");
-			output.CreateOrOpenFile(WriteFlag.MAINTAIN);
-			output.Print(new RecordOutputer(playerBeans, WYbeans, NYbeans));
-			output.Close();
-			
-			Toast.makeText(AFileOutput.this, "完成輸出", Toast.LENGTH_SHORT).show();
+			try
+			{
+				WYBeans WYbeans=cpzs.getREWYBeans().queryForEq("palyerno", playno).get(0);
+				NYBeans NYbeans=cpzs.getRENYBeans().queryForEq("palyerno", playno).get(0);
+				
+				BaseFileOuter output=new BaseFileOuter(GlobleParam.Create().getOutputFilePath(), playno+".cz");
+				output.CreateOrOpenFile(WriteFlag.MAINTAIN);
+				output.Print(new RecordOutputer(playerBeans, WYbeans, NYbeans));
+				output.Close();
+				
+				cpzs.close();
+				Toast.makeText(AFileOutput.this, "完成輸出", Toast.LENGTH_SHORT).show();
+			}
+			catch (Exception e)
+			{
+				Toast.makeText(AFileOutput.this, "还有记录未完成", Toast.LENGTH_SHORT).show();
+			}
 		}
 	};
 	

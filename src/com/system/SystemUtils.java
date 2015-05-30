@@ -31,7 +31,7 @@ public class SystemUtils
 	/** 将时期对象转化为指定的日期字符串 */
 	public static String ConvertDate(Date date)
 	{
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd_HH_mm");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy_MM_dd HH:mm:ss");
 		return format.format(date);
 	}
 

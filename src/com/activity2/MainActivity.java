@@ -100,5 +100,7 @@ public class MainActivity extends Activity
 			GlobleParam.Create().setPsBeans(list.get(0));
 		else 
 			GlobleParam.Create().setPsBeans(new PassWordBeans());
+		
+		CPZS.close();
 	}
 }

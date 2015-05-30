@@ -115,13 +115,13 @@ public class AWYInput extends Activity
 			// TODO Auto-generated method stub
 			if (isChecked)
 			{
-				
+				beans.setJiashe_no(0);
 				ed_banzhan.setEnabled(false);
 				ed_buwen.setEnabled(false);
 			}
 			else
 			{
-
+				beans.setJiashe_no(1);
 				ed_banzhan.setEnabled(true);
 				ed_buwen.setEnabled(true);
 			}
@@ -138,12 +138,12 @@ public class AWYInput extends Activity
 			// TODO Auto-generated method stub
 			if (isChecked)
 			{
-
+				beans.setDuizhong_no(0);
 				ed_qipao.setEnabled(false);
 			}
 			else
 			{
-
+				beans.setDuizhong_no(1);
 				ed_qipao.setEnabled(true);
 			}
 		}
@@ -159,13 +159,13 @@ public class AWYInput extends Activity
 			// TODO Auto-generated method stub
 			if (isChecked)
 			{
-
+				beans.setDingxiang_no(0);
 				ed_qian.setEnabled(false);
 				ed_hou.setEnabled(false);
 			}
 			else
 			{
-
+				beans.setDingxiang_no(1);
 				ed_qian.setEnabled(true);
 				ed_hou.setEnabled(true);
 			}
@@ -182,12 +182,12 @@ public class AWYInput extends Activity
 			// TODO Auto-generated method stub
 			if (isChecked)
 			{
-
+				beans.setYindian_no(0);
 				ed_chaoxian.setEnabled(false);
 			}
 			else
 			{
-
+				beans.setYindian_no(1);
 				ed_chaoxian.setEnabled(true);
 			}
 		}
@@ -198,16 +198,18 @@ public class AWYInput extends Activity
 
 		@Override
 		public void onCheckedChanged(CompoundButton buttonView,
-				boolean isChecked)
+				boolean isChecked) 
 		{
 			// TODO Auto-generated method stub
 			if (isChecked)
 			{
+				beans.setCaiji_finish(0);
 				ed_jiangli.setEnabled(true);
 				ed_fail.setEnabled(false);
 			}
 			else
 			{
+				beans.setCaiji_finish(1);
 				ed_jiangli.setEnabled(false);
 				ed_fail.setEnabled(true);
 			}
@@ -433,6 +435,7 @@ public class AWYInput extends Activity
 					.createOrUpdate(helper.getBeans());
 			result = result && (j.isCreated() || j.isUpdated());
 		}
+		cpzs.close();
 		SQLiteOrmHelper.ToastShowResult(AWYInput.this, result);
 		return result;
 
