@@ -96,7 +96,7 @@ public class BaseFileOuter
 					{	
 						out=new OutputStreamWriter(new  FileOutputStream(CombinePath(),false));
 					}
-				}
+				}break;
 				case MAINTAIN:
 				{
 					if(FileUtils.IsFileExist(CombinePath()))
@@ -126,7 +126,7 @@ public class BaseFileOuter
 							out=new OutputStreamWriter(new  FileOutputStream(CombinePath(),false));
 						}
 					}
-				}
+				}break;
 			default:
 				break;
 			}

@@ -52,7 +52,7 @@ public class AWYInput extends Activity
 	private WYBeans beans;
 	private RecordStateBeans stateBeans;
 
-	private static boolean Flag_isLocked;
+	public static boolean Flag_isLocked;
 	private boolean Flag_issaved;
 
 	public static final int AWYInput_ResetStart = 1;
@@ -201,14 +201,18 @@ public class AWYInput extends Activity
 			if (isChecked)
 			{
 				beans.setCaiji_finish(0);
+				beans.setCaiji_fail(0);
 				ed_jiangli.setEnabled(true);
 				ed_fail.setEnabled(false);
+				ed_fail.setText("0");
 			}
 			else
 			{
 				beans.setCaiji_finish(1);
+				beans.setCaiji_fail(1);
 				ed_jiangli.setEnabled(false);
 				ed_fail.setEnabled(true);
+				ed_fail.setText("1");
 			}
 		}
 	};
@@ -225,11 +229,13 @@ public class AWYInput extends Activity
 			{
 				if (requestCode == AWYInput_ResetStart)
 				{
-					btn_start.setEnabled(true);
+					tv_start.setText(SystemUtils.getSystemDateString());
+					beans.setStarttime(tv_start.getText().toString());
 				}
 				if (requestCode == AWYInput_ResetEnd)
 				{
-					btn_end.setEnabled(true);
+					tv_end.setText(SystemUtils.getSystemDateString());
+					beans.setEndtime(tv_end.getText().toString());
 				}
 				if (requestCode == AWYInput_Locked)
 				{
@@ -441,6 +447,7 @@ public class AWYInput extends Activity
 			CreateOrUpdateStatus j = cpzs.getRERecordStateBeans()
 					.createOrUpdate(helper.getBeans());
 			result = result && (j.isCreated() || j.isUpdated());
+			AWYInput.Flag_isLocked=true;
 		}
 		cpzs.close();
 		SQLiteOrmHelper.ToastShowResult(AWYInput.this, result);
@@ -454,10 +461,10 @@ public class AWYInput extends Activity
 		WYHelper helper=new WYHelper(beans);
 		
 		tv_end.setText(helper.getEndTime());
-		btn_end.setEnabled(!islocked&&helper.getEndTime().equals(""));
+		btn_end.setEnabled(!islocked&&helper.getEndTime().equals("____-__-__ --:--:--"));
 		
 		tv_start.setText(helper.getStartTime());
-		btn_start.setEnabled(!islocked&&helper.getStartTime().equals(""));
+		btn_start.setEnabled(!islocked&&helper.getStartTime().equals("____-__-__ --:--:--"));
 		
 		//º‹…Ë
 		cb_jiashe.setChecked(beans.getJiashe_no()==0);
@@ -486,7 +493,7 @@ public class AWYInput extends Activity
 		//≤…ºØ
 		cb_caiji.setChecked(beans.getCaiji_finish()==0);
 		cb_caiji.setEnabled(!islocked);
-		ed_jiangli.setEnabled(!islocked&&beans.getCaiji_finish()!=0);
+		ed_jiangli.setEnabled(!islocked);
 		ed_jiangli.setText(""+beans.getCaiji_jiangli());
 		ed_fail.setEnabled(!islocked&&beans.getCaiji_finish()!=0);
 		ed_fail.setText(""+beans.getCaiji_fail ());

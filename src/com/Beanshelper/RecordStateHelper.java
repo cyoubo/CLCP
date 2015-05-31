@@ -20,6 +20,11 @@ public class RecordStateHelper
 		return beans.getPlayerNO();
 	}
 	
+	public void setPlayerNO(String no)
+	{
+		this.beans.setPlayerNO(no);
+	}
+	
 	public boolean isOverWY()
 	{
 		return beans.getIsoverWY()==1;

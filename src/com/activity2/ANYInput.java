@@ -51,7 +51,7 @@ public class ANYInput extends Activity
 	private NYBeans beans;
 	private RecordStateBeans stateBeans;
 	
-	private static boolean Flag_isLocked;
+	public static boolean Flag_isLocked;
 	private boolean Flag_issaved;
 	
 	public static final int ANYInput_ResetStart=1;
@@ -181,11 +181,13 @@ public class ANYInput extends Activity
 			{
 				if(requestCode==ANYInput_ResetStart)
 				{
-					btn_start.setEnabled(true);
+					tv_start.setText(SystemUtils.getSystemDateString());
+					beans.setStarttime(tv_start.getText().toString());
 				}
 				if(requestCode==ANYInput_ResetEnd)
 				{
-					btn_end.setEnabled(true);
+					tv_end.setText(SystemUtils.getSystemDateString());
+					beans.setEndtime(tv_end.getText().toString()); 
 				}
 				if(requestCode==ANYInput_Locked)
 				{
@@ -233,7 +235,7 @@ public class ANYInput extends Activity
 	{
 		NYHelper helper=new NYHelper(beans);
 		tv_end.setText(helper.getEndTime());
-		if(tv_end.getText().equals(""))
+		if(tv_end.getText().equals("____-__-__ --:--:--"))
 			btn_end.setEnabled(islocked);
 		else 
 			btn_end.setEnabled(false);
@@ -241,7 +243,7 @@ public class ANYInput extends Activity
 		tv_start.setText(helper.getStartTime());
 		btn_start.setEnabled(islocked);
 		
-		if(tv_start.getText().equals(""))
+		if(tv_start.getText().equals("____-__-__ --:--:--"))
 			btn_start.setEnabled(islocked);
 		else 
 			btn_start.setEnabled(false);
@@ -466,6 +468,7 @@ public class ANYInput extends Activity
 			helper.setIsOverNY(result);
 			CreateOrUpdateStatus j=cpzs.getRERecordStateBeans().createOrUpdate(helper.getBeans());
 			result=result&&(j.isCreated()||j.isUpdated());
+			ANYInput.Flag_isLocked=true;
 		}
 		cpzs.close();
 		SQLiteOrmHelper.ToastShowResult(ANYInput.this, result);

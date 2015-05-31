@@ -8,6 +8,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.Beanshelper.RecordStateHelper;
+import com.beans.RecordStateBeans;
 import com.clcp.R;
 import com.compenent.SQliteCPZS;
 import com.system.GlobleParam;
@@ -67,6 +69,17 @@ public class APlayerInput extends Activity
 				SQLiteOrmSDContext context=new SQLiteOrmSDContext(APlayerInput.this,GlobleParam.Create());
 				SQliteCPZS cpzs=new SQliteCPZS(context);
 				int result=cpzs.getREPlayerBeans().create(GlobleParam.Create().getPlayerBeans());
+				
+				RecordStateBeans tBeans=new RecordStateBeans();
+				RecordStateHelper tHelper=new RecordStateHelper(tBeans);
+				tHelper.setIsOverNY(false);
+				ANYInput.Flag_isLocked=false;
+				tHelper.setIsOverWY(false);
+				AWYInput.Flag_isLocked=false;
+				tHelper.setPlayerNO(GlobleParam.Create().getPlayerBeans().getPlayerno());
+				
+				cpzs.getRERecordStateBeans().createOrUpdate(tHelper.getBeans());
+				
 				cpzs.close();
 				SQLiteOrmHelper.ToastShowResult(APlayerInput.this, result);
 				if(result!=-1)

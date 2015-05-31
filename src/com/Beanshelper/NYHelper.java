@@ -21,7 +21,7 @@ public class NYHelper
 	public String getEndTime()
 	{
 		if(beans.getEndtime()==null||beans.getEndtime().equals(""))
-			return "";
+			return "____-__-__ --:--:--";
 		else 
 			return beans.getEndtime();
 	}

@@ -124,14 +124,15 @@ public class RecordOutputer implements FileoutputListener
 				
 				out.write(WYHelper.caiji_finish+":"+wyBeans.getCaiji_finish());
 				out.write(BaseFileOuter.NewLine());
-			}
-			else 
-			{
+				
 				if(wyBeans.getCaiji_jiangli()!=0)
 				{
 					out.write(WYHelper.caiji_jiangli+":"+wyBeans.getCaiji_jiangli());
 					out.write(BaseFileOuter.NewLine());
 				}
+			}
+			else 
+			{
 				if(wyBeans.getCaiji_fail()!=0)
 				{
 					out.write(WYHelper.caiji_fail+":"+wyBeans.getCaiji_fail());

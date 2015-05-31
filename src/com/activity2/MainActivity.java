@@ -2,7 +2,10 @@ package com.activity2;
 
 import java.util.List;
 
+import com.Beanshelper.RecordStateHelper;
 import com.beans.PassWordBeans;
+import com.beans.PlayerBeans;
+import com.beans.RecordStateBeans;
 import com.clcp.R;
 import com.compenent.PannelAdapter;
 import com.compenent.SQliteCPZS;
@@ -10,7 +13,10 @@ import com.system.GlobleParam;
 import com.tool.SqliteHelperOrm.SQLiteOrmSDContext;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -41,6 +47,7 @@ public class MainActivity extends Activity
 		
 		PrepareDatabase();
 		PreparePasswordBeans();
+		PerparebyShare();
 		
 	}
 	
@@ -104,10 +111,48 @@ public class MainActivity extends Activity
 		CPZS.close();
 	}
 	
+	private void PerparebyShare()
+	{
+		SharedPreferences sp=getSharedPreferences("Current", Context.MODE_PRIVATE);
+		String currentno=sp.getString("current", "");
+		if(!currentno.equals(""))
+		{
+			SQLiteOrmSDContext context=new SQLiteOrmSDContext(this, GlobleParam.Create());
+			SQliteCPZS CPZS=new SQliteCPZS(context);
+			List<PlayerBeans> list=CPZS.getREPlayerBeans().queryForEq("playerno", currentno);
+			if(list.size()!=0)
+			{
+				GlobleParam.Create().setPlayerBeans(list.get(0));
+				
+				RecordStateBeans teBeans=CPZS.getRERecordStateBeans().queryForEq("playerNO", currentno).get(0);
+				RecordStateHelper teHelper=new RecordStateHelper(teBeans);
+				ANYInput.Flag_isLocked=teHelper.isOverNY();
+				AWYInput.Flag_isLocked=teHelper.isOverWY();
+			}
+			else 
+				GlobleParam.Create().setPlayerBeans(new PlayerBeans());
+			
+			CPZS.close();
+		}
+	}
+	
+	@Override
+	protected void onResume()
+	{
+		// TODO Auto-generated method stub
+		super.onResume();
+		
+	}
+	
 	@Override
 	protected void onDestroy()
 	{
 		// TODO Auto-generated method stub
 		super.onDestroy();
+		//将当前比赛组写入配置文件，方便后期恢复
+		SharedPreferences sp=getSharedPreferences("Current", Context.MODE_PRIVATE);
+		Editor ed=sp.edit();
+		ed.putString("current", GlobleParam.Create().getPlayerBeans().getPlayerno());
+		ed.commit();
 	}
 }

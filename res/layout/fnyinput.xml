@@ -2,7 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:focusable="true" 
+	android:focusableInTouchMode="true"
+    >
 
     <TextView
         android:id="@+id/fnyinput_tv_current"
@@ -349,14 +352,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="12dp"
-                        android:text="9990301012"
+                        android:text="9990301021"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="11dp"
-                        android:text="9990301002"
+                        android:text="9990301012"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
                 </LinearLayout>
 

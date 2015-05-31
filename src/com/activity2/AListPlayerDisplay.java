@@ -9,8 +9,10 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Toast;
 
+import com.Beanshelper.RecordStateHelper;
 import com.beans.NYBeans;
 import com.beans.PlayerBeans;
+import com.beans.RecordStateBeans;
 import com.compenent.PlayersAdapter;
 import com.compenent.SQliteCPZS;
 import com.system.GlobleParam;
@@ -58,6 +60,15 @@ public class AListPlayerDisplay extends ListActivity
 				{
 					// TODO Auto-generated method stub
 					GlobleParam.Create().setPlayerBeans(adapter.getClicked(index));
+					SQLiteOrmSDContext context=new SQLiteOrmSDContext(AListPlayerDisplay.this, GlobleParam.Create());
+					SQliteCPZS CPZS=new SQliteCPZS(context);
+					String currentString=GlobleParam.Create().getPlayerBeans().getPlayerno();
+					RecordStateBeans teBeans=CPZS.getRERecordStateBeans().queryForEq("playerNO", currentString).get(0);
+					RecordStateHelper teHelper=new RecordStateHelper(teBeans);
+					ANYInput.Flag_isLocked=teHelper.isOverNY();
+					AWYInput.Flag_isLocked=teHelper.isOverWY();
+					CPZS.close();
+					
 					Toast.makeText(AListPlayerDisplay.this, "…Ë÷√≥…π¶", Toast.LENGTH_SHORT).show();
 					finish();
 				}
